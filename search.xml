@@ -4,6 +4,36 @@
   
     
     <entry>
+      <title><![CDATA[hexo博客next主题折腾记]]></title>
+      <url>https://antstrong.github.io/2016/12/22/hexo%E5%8D%9A%E5%AE%A2next%E4%B8%BB%E9%A2%98%E6%8A%98%E8%85%BE%E8%AE%B0/</url>
+      <content type="html"><![CDATA[<p>首先，我很清楚现在网络上关于用hexo搭建博客的文章已经不计其数，但是在自己搭建完本博客之后还是忍不住要回顾一下整个流程，有两方面的考虑：</p>
+<ol>
+<li>对知识的一个总结</li>
+<li>因为这是自己第一次写文章，也可以练习一下文笔和对Markdown的使用</li>
+</ol>
+<h2 id="搭建博客的初衷"><a href="#搭建博客的初衷" class="headerlink" title="搭建博客的初衷"></a>搭建博客的初衷</h2><hr>
+<ul>
+<li>当然是为了装比（不不，作为一个程序员当然是为了慢慢树立属于自己的品牌）</li>
+<li>因为平常自己会看一些技术书籍，以前都是用纸质笔记本在写读书笔记和总结之类的，但是为了方便今后自己回顾和提倡绿色环保的理念还是选择了搭建一个博客</li>
+</ul>
+<h2 id="利用hexo搭建博客的步骤："><a href="#利用hexo搭建博客的步骤：" class="headerlink" title="利用hexo搭建博客的步骤："></a>利用hexo搭建博客的步骤：</h2><hr>
+<h3 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h3><p>当然前提条件是你已经安装了node.js，安装node.js的同时会自带安装全球最大的包管理工具NPM，然后打开命令行工具依次 输入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">npm install hexo-cli -g //全局安装hexo</div><div class="line">hexo init blog //在你自己想创建博客的目录下初始化博客项目</div><div class="line"><span class="built_in">cd</span> blog </div><div class="line">npm install //安装依赖</div><div class="line">hexo server //开启hexo服务器</div></pre></td></tr></table></figure></p>
+<p>执行完最后一条命令后你应该看到类似INFO  Hexo is running at <a href="http://localhost:4000/" target="_blank" rel="external">http://localhost:4000/</a>. Press Ctrl+C to stop.的语句，那么访问<a href="http://localhost:4000/" target="_blank" rel="external">http://localhost:4000/</a> 即可看到默认的landscape主题的网站</p>
+<h3 id="下载next主题并切换主题"><a href="#下载next主题并切换主题" class="headerlink" title="下载next主题并切换主题"></a>下载next主题并切换主题</h3><p>下载就不多说，利用git直接克隆github上最新的next，具体可以参考<a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="external">next使用</a>，然后在站点根目录，也即是blog目录下找到_config.yml 文件，在文件中找到 theme 关键字修改为如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">theme: next</div></pre></td></tr></table></figure></p>
+<p>同样为了验证我们的主题切换是否成功，命令行工具输入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo s</div></pre></td></tr></table></figure></p>
+<h3 id="主题配置中踩过的坑"><a href="#主题配置中踩过的坑" class="headerlink" title="主题配置中踩过的坑"></a>主题配置中踩过的坑</h3><p>当然上一步我们已经成功的将我们的博客主题切换到了next，但肯定有很多骚年不满足于目前next的表现，于是就开始了next主题个性化和第三方功能的折腾当中，官网已经说的很详细，具体见<a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="external">next使用</a>，下面就我自己踩过的几个坑做个特殊的说明：</p>
+<h4 id="多说user-id大坑"><a href="#多说user-id大坑" class="headerlink" title="多说user_id大坑"></a>多说user_id大坑</h4><p>为你的博客添加多说评论很简单，只需要注册一个多说账号，然后在站点配置文件 _config.yml 中增加字段：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">duoshuo_shortname: 你的多说域名中.duoshuo.com前面的字段</div></pre></td></tr></table></figure>
+<p>启用UA功能也很简单，只需要在next主题配置文件 _config.yml  中找到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">duoshuo_info:</div><div class="line">  ua_enable: true</div><div class="line">  admin_enable: true</div><div class="line">  user_id: 0</div><div class="line">  admin_nickname: 博主</div></pre></td></tr></table></figure></p>
+<p>然后将ua_enable字段设置为true即可，但是这个admin_enable字段是干什么用的呢？这个字段是为了在评论区突出显示博主自己而需要配置的，当然为了彰显出主场的气势，我也准备将这个功能打开，于是我将admin_enable字段设置为了true,但是问题来了，官网上明显说的是当admin_enable设置为true是必须设置user_id和admin_nickname，admin_nickname字段好说，随便写个自己看着舒服的名字就可以了，可是这个user_id是什么鬼？于是我差点没将我的<a href="http://antstrong.duoshuo.com/" target="_blank" rel="external">多说账号</a>里面的每一个字段都当成user_id一遍又一遍的测试，最后还是无功而返，试着各种搜索也没有找到相关的解决方案。最后，在官网和主题配置文件里面找到了答案，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># Make duoshuo show UA</div><div class="line"># user_id must NOT be null when admin_enable is true!</div><div class="line"># you can visit http://dev.duoshuo.com get duoshuo user id.</div><div class="line">duoshuo_info:</div><div class="line">  ua_enable: true</div><div class="line">  admin_enable: true</div><div class="line">  user_id: </div><div class="line">  admin_nickname:</div></pre></td></tr></table></figure></p>
+<p>别人明明说了让你去<a href="http://dev.duoshuo.com" target="_blank" rel="external">http://dev.duoshuo.com</a> 这个多说的开发者中心拿取user_id你却跑到<a href="http://antstrong.duoshuo.com" target="_blank" rel="external">http://antstrong.duoshuo.com</a> 去闹了个天翻地覆，还有就是官网也明明给了你答案，如下图：<br><img src="https://ws2.sinaimg.cn/large/aef6d2d7gw1fazlfa07glj20ny07pjt2.jpg" alt="user_id说明"><br>这时候真的是想说句日了狗了，同时也说明了自己不够细心，学东西太过于急切，也算是一个不大不小的教训吧，对了，最后贴一张最终的效果图吧：<br><img src="https://ws4.sinaimg.cn/large/aef6d2d7gw1fazln06d87j20j906k3yy.jpg" alt="效果图"></p>
+<h4 id="打赏功能之坑"><a href="#打赏功能之坑" class="headerlink" title="打赏功能之坑"></a>打赏功能之坑</h4><p>   打赏功能不必多说，开始主要是不知道要怎么添加这个功能，后面发现我正在使用的next主题已经集成了此功能，只需要在主题配置文件中添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># 文章末尾显示打赏</div><div class="line">reward_comment: 你的鼓励，我的动力！</div><div class="line">wechatpay: 微信支付图片URL</div><div class="line">alipay: 支付宝图片URL</div></pre></td></tr></table></figure></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><hr>
+<p>当然为了搭建这个博客，来来去去花了自己不少时间，因为自己也算一个小白，在很多方面都没有经验，所以只有靠着搜索引擎慢慢的收集资料，然后慢慢的消化慢慢的做出成果，最终，在踩了不少坑之后，这边笔记也相当于给自己的一个交代吧！哈哈，终于是完成了，当然完成也是一个开始，后面自己会尽力坚持在博客上多分享一些技术性的文章和自己的学习笔记，Live beautiful, come on!</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Hello World]]></title>
       <url>https://antstrong.github.io/2016/12/05/hello-world/</url>
       <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>

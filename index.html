@@ -284,6 +284,180 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://antstrong.github.io/2017/04/07/工作中常用的几种jsonp处理跨域的方式/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="antstrong">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="antstrong's corner">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="antstrong's corner" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/07/工作中常用的几种jsonp处理跨域的方式/" itemprop="url">
+                  工作中常用的几种jsonp处理跨域的方式
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-07T21:13:04+08:00">
+                2017-04-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/04/07/工作中常用的几种jsonp处理跨域的方式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/07/工作中常用的几种jsonp处理跨域的方式/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/04/07/工作中常用的几种jsonp处理跨域的方式/" class="leancloud_visitors" data-flag-title="工作中常用的几种jsonp处理跨域的方式">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="工作中常用的几种jsonp处理跨域的方式"><a href="#工作中常用的几种jsonp处理跨域的方式" class="headerlink" title="工作中常用的几种jsonp处理跨域的方式"></a>工作中常用的几种jsonp处理跨域的方式</h2><h4 id="一-用jQuery的ajax方法"><a href="#一-用jQuery的ajax方法" class="headerlink" title="一.用jQuery的ajax方法"></a>一.用jQuery的ajax方法</h4><p>先上代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">    <span class="attr">url</span>: <span class="string">'url'</span>,</div><div class="line">    <span class="attr">data</span>: &#123;&#125;,</div><div class="line">    <span class="attr">type</span>: <span class="string">'get'</span>,</div><div class="line">    <span class="attr">dataType</span>: <span class="string">"jsonp"</span>,</div><div class="line">    <span class="attr">jsonp</span>: <span class="string">'callback'</span>,</div><div class="line">   &#125;)</div></pre></td></tr></table></figure></p>
+<p>其中的三个关键参数是</p>
+<ol>
+<li>type：请求方法，由于是跨域请求，所以肯定是get；</li>
+<li>dataType：一般我们这个参数的值都是json，但是由于这里用jsonp处理跨域，所以参数是’jsonp’；</li>
+<li>jsonp: 这个参数最为重要，这个值是我们本地定义的一个函数，当用jsonp处理跨域时，会把这个函数带到后端，然后后端用此函数将实际返回的数据用callback包装起来返回给我们(自己的浅显理解)。<br><strong> 这里有个坑需要特别强调下 </strong><br>通常情况下我们的请求是通过按钮触发的，这时候我们就有了如下的代码：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">'#btn'</span>).on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    $.ajax(&#123;</div><div class="line">      <span class="attr">url</span>: <span class="string">''</span>,</div><div class="line">      <span class="attr">data</span>: &#123;&#125;,</div><div class="line">      <span class="attr">type</span>: <span class="string">'get'</span>,</div><div class="line">      <span class="attr">async</span>: <span class="literal">false</span>,</div><div class="line">      <span class="attr">dataType</span>: <span class="string">"jsonp"</span>,</div><div class="line">      <span class="attr">jsonp</span>: <span class="string">'callback'</span>,</div><div class="line">    &#125;)</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">callback</span>(<span class="params">res</span>) </span>&#123;</div><div class="line">      <span class="keyword">if</span> (res.errno === <span class="number">0</span>) &#123;</div><div class="line">        pop_show();</div><div class="line">        $(<span class="string">'#success'</span>).show();</div><div class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (res.errno === <span class="number">-26</span>) &#123;</div><div class="line">        pop_show();</div><div class="line">        $(<span class="string">'#fail'</span>).show();</div><div class="line">      &#125; <span class="keyword">else</span> &#123;</div><div class="line">      	alert(res.desc)</div><div class="line">      &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>如上，打开控制台，如果后台没有问题会报callback not defined，这时候我们必须加上window.callback = callback以解决此问题。</p>
+<h4 id="二-用jQuery的-getJSON方法"><a href="#二-用jQuery的-getJSON方法" class="headerlink" title="二.用jQuery的$.getJSON方法"></a>二.用jQuery的$.getJSON方法</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$.getJSON(<span class="string">'http://user.tvesou.com/wechat/get_jssdk_sign?app=1&amp;url='</span> + <span class="built_in">encodeURIComponent</span>(location.href.split(<span class="string">'#'</span>)[<span class="number">0</span>]) + <span class="string">'&amp;callback=?'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;&#125;)</div></pre></td></tr></table></figure>
+<p>运用jQuery的$.getJSON这种方法跨域更为简单，在请求的第一个参数也即是url后面带上需要传递的参数，最后必须带上<strong>&amp;callback=?</strong>，后面的一个参数则是请求成功后的回调函数。其实这中方法的关键就是在url后面带上<strong>&amp;callback=?</strong>啦，其他的参数和正常情况下完全一样。</p>
+<h4 id="三-最后一种就是利用vue-resource"><a href="#三-最后一种就是利用vue-resource" class="headerlink" title="三.最后一种就是利用vue-resource"></a>三.最后一种就是利用vue-resource</h4><p>下面是我平时封装的一个函数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">cpost</span>(<span class="params">v, cdata</span>) </span>&#123;</div><div class="line">  <span class="keyword">let</span> nwtime = getNowTime() <span class="comment">//时间</span></div><div class="line">  <span class="keyword">let</span> sign = getSign(nwtime) <span class="comment">//时间加固定字符串生成的md5</span></div><div class="line">  <span class="keyword">let</span> param = &#123;</div><div class="line">    <span class="attr">nwtime</span>: nwtime,</div><div class="line">    <span class="attr">sign</span>: sign</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">let</span> HOST = <span class="string">'固定url'</span> + cdata.url</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> cdata.postData) &#123;</div><div class="line">    param[key] = cdata.postData[key]</div><div class="line">  &#125;</div><div class="line">  v.$http.jsonp(HOST, &#123;<span class="attr">params</span>: param&#125;)</div><div class="line">    .then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</div><div class="line">      response = response.body</div><div class="line">      cdata.callback(response)</div><div class="line">    &#125;, response =&gt; &#123;</div><div class="line">      <span class="built_in">console</span>.log(<span class="string">'网络错误！'</span>)</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>其实这种方法vue-resource的jsonp和jQuery的 $.getJSON差不多，就不多说了，这里想说明的是vue-resource中的一个坑（其实也不算坑，是自己文档没有看仔细），记得最开始接触的折腾了很久，这个需要注意的点就是，在vue-resource中我们传递给后端的参数都必须这样进行封装：{params: ’我们自己的参数‘}，也即是我们传递给vue-resource的是一个对象，params属性是固定的，后面的值就是要传递的参数。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="https://antstrong.github.io/2017/03/07/两个移动端样式记录/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -859,7 +1033,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -868,7 +1042,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -877,7 +1051,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

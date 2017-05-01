@@ -1,12 +1,413 @@
-<?xml version="1.0" encoding="utf-8"?>
-<search>
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="json," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="深入理解JSON如果你愿意一层一层剥开我的心，你会发现…这里水很深——深入理解JSON
+我们先来看一个JS中常见的JS对象序列化成JSON字符串的问题，请问，以下JS对象通过JSON.stringify后的字符串是怎样的？先不要急着复制粘贴到控制台，先自己打开一个代码编辑器或者纸，写写看，写完再去仔细对比你的控制台输出，如果有误或者需要一段时间去考量，那么这次分享就有意义了
+12345678910">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解JSON">
+<meta property="og:url" content="https://antstrong.github.io/2017/05/01/深入理解JSON/index.html">
+<meta property="og:site_name" content="antstrong's corner">
+<meta property="og:description" content="深入理解JSON如果你愿意一层一层剥开我的心，你会发现…这里水很深——深入理解JSON
+我们先来看一个JS中常见的JS对象序列化成JSON字符串的问题，请问，以下JS对象通过JSON.stringify后的字符串是怎样的？先不要急着复制粘贴到控制台，先自己打开一个代码编辑器或者纸，写写看，写完再去仔细对比你的控制台输出，如果有误或者需要一段时间去考量，那么这次分享就有意义了
+12345678910">
+<meta property="og:updated_time" content="2017-05-01T02:06:12.148Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入理解JSON">
+<meta name="twitter:description" content="深入理解JSON如果你愿意一层一层剥开我的心，你会发现…这里水很深——深入理解JSON
+我们先来看一个JS中常见的JS对象序列化成JSON字符串的问题，请问，以下JS对象通过JSON.stringify后的字符串是怎样的？先不要急着复制粘贴到控制台，先自己打开一个代码编辑器或者纸，写写看，写完再去仔细对比你的控制台输出，如果有误或者需要一段时间去考量，那么这次分享就有意义了
+12345678910">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6334632598182036000',
+      author: '小主公'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://antstrong.github.io/2017/05/01/深入理解JSON/"/>
+
+
+
+
+
+  <title> 深入理解JSON | antstrong's corner </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?68441b9bbe2ca67083ea42b5eb672fd5";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
   
   
     
-    <entry>
-      <title><![CDATA[深入理解JSON]]></title>
-      <url>https://antstrong.github.io/2017/05/01/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JSON/</url>
-      <content type="html"><![CDATA[<h2 id="深入理解JSON"><a href="#深入理解JSON" class="headerlink" title="深入理解JSON"></a>深入理解JSON</h2><p><strong>如果你愿意一层一层剥开我的心，你会发现…这里水很深——深入理解JSON</strong></p>
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">antstrong's corner</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description">Live beautiful</h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-trophy"></i> <br />
+            
+            成就
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://antstrong.github.io/2017/05/01/深入理解JSON/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="antstrong">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="antstrong's corner">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="antstrong's corner" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                深入理解JSON
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-01T09:50:16+08:00">
+                2017-05-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/json/" itemprop="url" rel="index">
+                    <span itemprop="name">json</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/01/深入理解JSON/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/01/深入理解JSON/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/05/01/深入理解JSON/" class="leancloud_visitors" data-flag-title="深入理解JSON">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="深入理解JSON"><a href="#深入理解JSON" class="headerlink" title="深入理解JSON"></a>深入理解JSON</h2><p><strong>如果你愿意一层一层剥开我的心，你会发现…这里水很深——深入理解JSON</strong></p>
 <p>我们先来看一个JS中常见的JS对象序列化成JSON字符串的问题，请问，以下JS对象通过JSON.stringify后的字符串是怎样的？<strong>先不要急着复制粘贴到控制台，先自己打开一个代码编辑器或者纸，写写看，写完再去仔细对比你的控制台输出，如果有误或者需要一段时间去考量，那么这次分享就有意义了</strong></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> friend = &#123;  </div><div class="line">    <span class="attr">firstName</span>: <span class="string">'Good'</span>,</div><div class="line">    <span class="string">'lastName'</span>: <span class="string">'Man'</span>,</div><div class="line">    <span class="string">'address'</span>: <span class="literal">undefined</span>,</div><div class="line">    <span class="string">'phone'</span>: [<span class="string">"1234567"</span>,<span class="literal">undefined</span>],</div><div class="line">    <span class="string">'fullName'</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.firstName + <span class="string">' '</span> + <span class="keyword">this</span>.lastName;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">JSON</span>.stringify(friend); <span class="comment">//这一行返回什么呢？</span></div></pre></td></tr></table></figure>
 <p>第二个问题，如果我想在最终JSON字符串将这个’friend’的姓名全部变成大写字母，也就是把”Good”变成”GOOD”，把”Man”变成”MAN”，那么可以怎么做？</p>
@@ -151,104 +552,667 @@
 <blockquote>
 <p><a href="https://apriltail.com/2017/03/25/json-ru-guo-ni-yuan-yi-yi-ceng-yi-ceng-bo-kai-wo-de-xin-ni-hui-fa-xian-zhe-li-shui-hen-shen-shen-ru-li-jie-json/" target="_blank" rel="external">原文地址</a></p>
 </blockquote>
-]]></content>
-    </entry>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>你的鼓励，我的动力！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="https://ws3.sinaimg.cn/mw690/aef6d2d7gw1fayhdvygm2j20w00thjus.jpg" alt="antstrong WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="https://ws3.sinaimg.cn/mw690/aef6d2d7gw1fayhchkhf0j20w01ckdl1.jpg" alt="antstrong Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/json/" rel="tag"># json</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/07/工作中常用的几种jsonp处理跨域的方式/" rel="next" title="工作中常用的几种jsonp处理跨域的方式">
+                <i class="fa fa-chevron-left"></i> 工作中常用的几种jsonp处理跨域的方式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
     
-    <entry>
-      <title><![CDATA[工作中常用的几种jsonp处理跨域的方式]]></title>
-      <url>https://antstrong.github.io/2017/04/07/%E5%B7%A5%E4%BD%9C%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E5%87%A0%E7%A7%8Djsonp%E5%A4%84%E7%90%86%E8%B7%A8%E5%9F%9F%E7%9A%84%E6%96%B9%E5%BC%8F/</url>
-      <content type="html"><![CDATA[<h2 id="工作中常用的几种jsonp处理跨域的方式"><a href="#工作中常用的几种jsonp处理跨域的方式" class="headerlink" title="工作中常用的几种jsonp处理跨域的方式"></a>工作中常用的几种jsonp处理跨域的方式</h2><h4 id="一-用jQuery的ajax方法"><a href="#一-用jQuery的ajax方法" class="headerlink" title="一.用jQuery的ajax方法"></a>一.用jQuery的ajax方法</h4><p>先上代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">    <span class="attr">url</span>: <span class="string">'url'</span>,</div><div class="line">    <span class="attr">data</span>: &#123;&#125;,</div><div class="line">    <span class="attr">type</span>: <span class="string">'get'</span>,</div><div class="line">    <span class="attr">dataType</span>: <span class="string">"jsonp"</span>,</div><div class="line">    <span class="attr">jsonp</span>: <span class="string">'callback'</span>,</div><div class="line">   &#125;)</div></pre></td></tr></table></figure></p>
-<p>其中的三个关键参数是</p>
-<ol>
-<li>type：请求方法，由于是跨域请求，所以肯定是get；</li>
-<li>dataType：一般我们这个参数的值都是json，但是由于这里用jsonp处理跨域，所以参数是’jsonp’；</li>
-<li>jsonp: 这个参数最为重要，这个值是我们本地定义的一个函数，当用jsonp处理跨域时，会把这个函数带到后端，然后后端用此函数将实际返回的数据用callback包装起来返回给我们(自己的浅显理解)。<br><strong> 这里有个坑需要特别强调下 </strong><br>通常情况下我们的请求是通过按钮触发的，这时候我们就有了如下的代码：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">'#btn'</span>).on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    $.ajax(&#123;</div><div class="line">      <span class="attr">url</span>: <span class="string">''</span>,</div><div class="line">      <span class="attr">data</span>: &#123;&#125;,</div><div class="line">      <span class="attr">type</span>: <span class="string">'get'</span>,</div><div class="line">      <span class="attr">async</span>: <span class="literal">false</span>,</div><div class="line">      <span class="attr">dataType</span>: <span class="string">"jsonp"</span>,</div><div class="line">      <span class="attr">jsonp</span>: <span class="string">'callback'</span>,</div><div class="line">    &#125;)</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">callback</span>(<span class="params">res</span>) </span>&#123;</div><div class="line">      <span class="keyword">if</span> (res.errno === <span class="number">0</span>) &#123;</div><div class="line">        pop_show();</div><div class="line">        $(<span class="string">'#success'</span>).show();</div><div class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (res.errno === <span class="number">-26</span>) &#123;</div><div class="line">        pop_show();</div><div class="line">        $(<span class="string">'#fail'</span>).show();</div><div class="line">      &#125; <span class="keyword">else</span> &#123;</div><div class="line">      	alert(res.desc)</div><div class="line">      &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>如上，打开控制台，如果后台没有问题会报callback not defined，这时候我们必须加上window.callback = callback以解决此问题。</p>
-<h4 id="二-用jQuery的-getJSON方法"><a href="#二-用jQuery的-getJSON方法" class="headerlink" title="二.用jQuery的$.getJSON方法"></a>二.用jQuery的$.getJSON方法</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$.getJSON(<span class="string">'http://user.tvesou.com/wechat/get_jssdk_sign?app=1&amp;url='</span> + <span class="built_in">encodeURIComponent</span>(location.href.split(<span class="string">'#'</span>)[<span class="number">0</span>]) + <span class="string">'&amp;callback=?'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;&#125;)</div></pre></td></tr></table></figure>
-<p>运用jQuery的$.getJSON这种方法跨域更为简单，在请求的第一个参数也即是url后面带上需要传递的参数，最后必须带上<strong>&amp;callback=?</strong>，后面的一个参数则是请求成功后的回调函数。其实这中方法的关键就是在url后面带上<strong>&amp;callback=?</strong>啦，其他的参数和正常情况下完全一样。</p>
-<h4 id="三-最后一种就是利用vue-resource"><a href="#三-最后一种就是利用vue-resource" class="headerlink" title="三.最后一种就是利用vue-resource"></a>三.最后一种就是利用vue-resource</h4><p>下面是我平时封装的一个函数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">cpost</span>(<span class="params">v, cdata</span>) </span>&#123;</div><div class="line">  <span class="keyword">let</span> nwtime = getNowTime() <span class="comment">//时间</span></div><div class="line">  <span class="keyword">let</span> sign = getSign(nwtime) <span class="comment">//时间加固定字符串生成的md5</span></div><div class="line">  <span class="keyword">let</span> param = &#123;</div><div class="line">    <span class="attr">nwtime</span>: nwtime,</div><div class="line">    <span class="attr">sign</span>: sign</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">let</span> HOST = <span class="string">'固定url'</span> + cdata.url</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> cdata.postData) &#123;</div><div class="line">    param[key] = cdata.postData[key]</div><div class="line">  &#125;</div><div class="line">  v.$http.jsonp(HOST, &#123;<span class="attr">params</span>: param&#125;)</div><div class="line">    .then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</div><div class="line">      response = response.body</div><div class="line">      cdata.callback(response)</div><div class="line">    &#125;, response =&gt; &#123;</div><div class="line">      <span class="built_in">console</span>.log(<span class="string">'网络错误！'</span>)</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>其实这种方法vue-resource的jsonp和jQuery的 $.getJSON差不多，就不多说了，这里想说明的是vue-resource中的一个坑（其实也不算坑，是自己文档没有看仔细），记得最开始接触的折腾了很久，这个需要注意的点就是，在vue-resource中我们传递给后端的参数都必须这样进行封装：{params: ’我们自己的参数‘}，也即是我们传递给vue-resource的是一个对象，params属性是固定的，后面的值就是要传递的参数。</p>
-]]></content>
-    </entry>
+      <div class="ds-thread" data-thread-key="2017/05/01/深入理解JSON/"
+           data-title="深入理解JSON" data-url="https://antstrong.github.io/2017/05/01/深入理解JSON/">
+      </div>
     
-    <entry>
-      <title><![CDATA[两个移动端样式记录]]></title>
-      <url>https://antstrong.github.io/2017/03/07/%E4%B8%A4%E4%B8%AA%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%A0%B7%E5%BC%8F%E8%AE%B0%E5%BD%95/</url>
-      <content type="html"><![CDATA[<ol>
-<li><p>移动端底部内容区域超过屏幕高度，有蒙层的情况下底部仍可滑动</p>
-<blockquote>
-<p>默认情况下<code>html</code>, <code>body</code>元素的<code>overflow</code>属性均为<code>auto</code>，因此当有蒙层的情况下需要将前面两个元素的<code>overflow</code>设置为<code>hidden</code>，当去掉蒙层的时候需要重新设置<code>overflow</code>属性的值为<code>auto</code>以确保页面的正常，下面为两个实现此功能的函数。</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//为了防止蒙层底部页面滑动。注：必须对html和body都设置overflow:hidden，移动端才能禁止蒙层底部页面滑动</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">pop_show</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  $(<span class="string">'html'</span>).attr(<span class="string">"style"</span>, <span class="string">"overflow:hidden;height:100%;"</span>);</div><div class="line">  $(<span class="string">'body'</span>).attr(<span class="string">"style"</span>, <span class="string">"overflow:hidden;height:100%;"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//蒙层关闭时body和html的overflow还原；</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">pop_close</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  $(<span class="string">'html'</span>).attr(<span class="string">"style"</span>, <span class="string">"overflow:auto;"</span>);</div><div class="line">  $(<span class="string">'body'</span>).attr(<span class="string">"style"</span>, <span class="string">"overflow:auto;"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>​</p>
-</li>
-<li><p>text-indent属性</p>
-<blockquote>
-<p>text-indent定义:<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/text-indent" target="_blank" rel="external"><code>text-indent</code> 属性 规定了 一个元素 首行 文本内容之前应该有多少水平空格。Horizontal spacing is with respect to the left (or right, for right-to-left layout) edge of the containing block element’s box.</a>  </p>
-</blockquote>
-<p>当<code>text-indent</code>的值设置为数字时，单位是肯定有的（这里有个梗：开始我自己的记忆深处这个属性一直是有单位的，但是当我请教别人时，他觉得没有单位，当时由于没仔细观察没应用单位时确实去掉了我当时的bug，不过原因是不带单位这个属性根本不起作用啊，有木有），要么是<code>em</code>要么是<code>px</code>要么是百分比（此时相对于父元素的宽度）。</p>
-<h3 id="案例："><a href="#案例：" class="headerlink" title="案例："></a>案例：</h3><p><img src="https://ws1.sinaimg.cn/large/aef6d2d7gy1fdd5ed2v5uj20ae0at3z3" alt=""></p>
-<p>如上图，右边的胜负平的图片，这里我的实现是用图片作为背景，然后将字体应用<code>text-indent</code>以实现隐藏</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;narrow f_l&quot;&gt;&lt;span</div><div class="line">            :class=&quot;&#123;vector: item.result===&apos;胜&apos;,lose: item.result===&apos;负&apos;,draw: item.result===&apos;平&apos;&#125;&quot;&gt;&#123;&#123;item.result&#125;&#125;&lt;/span&gt;</div><div class="line">          &lt;/div&gt;</div></pre></td></tr></table></figure>
-<p>这里针对不同的结果，应用不同的背景图片，css如下：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.vector</span>, <span class="selector-class">.lose</span>, <span class="selector-class">.unknow</span>, <span class="selector-class">.draw</span></div><div class="line">          <span class="selector-tag">display</span> <span class="selector-tag">inline-block</span></div><div class="line">          <span class="selector-tag">width</span> 28<span class="selector-tag">px</span></div><div class="line">          <span class="selector-tag">height</span> 13<span class="selector-tag">px</span></div><div class="line">          <span class="selector-tag">line-height</span> 13<span class="selector-tag">px</span></div><div class="line">          <span class="selector-tag">transform</span> <span class="selector-tag">skew</span>(<span class="selector-tag">-30deg</span>) <span class="comment">/*设置倾斜度为-30*/</span></div><div class="line">          <span class="selector-tag">color</span> <span class="selector-id">#FFF</span></div><div class="line">          <span class="selector-tag">text-align</span> <span class="selector-tag">center</span></div><div class="line">          <span class="selector-tag">text-indent</span> 2000<span class="selector-tag">px</span></div></pre></td></tr></table></figure>
-<p><strong>注意上面<code>css</code>中的第一行，可以算是text-indent的又一个特性，其适用的元素是block containers，对行内元素没有任何作用</strong></p>
-<p>​    这时的效果在chrome下的模拟器中表现的一切都正常，但是当你在手机端去查看的时候会发现，屏幕居然可以左右滑动，为什么呢？当我把所有的项目的所有<code>css</code>都看了一遍之后也没发现个所以然，最后请教大神才发现问题所在，但是大神开始一眼看出是text-indent多了单位，当把<code>px</code>去掉之后，左右可滑动的bug确实解决了，但是后面我仔细观察才发现原来字并没有缩进，而是和背景图重合在了一起，后面查阅资料才发现<code>text-indent</code>的如上知识点。因为原来的记忆中貌似<code>text-indent</code>一般都设置为<code>-999px</code>，果然当做了如上修改后，一切都恢复正常：文字被缩进到屏幕之外，左右也没有了滑动效果。</p>
-</li>
-<li><p>总结：所以，细节决定成败，看似很基础的知识，很渺小的问题往往会起决定性的作用。</p>
-<p>​</p>
-</li>
-</ol>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[hexo博客next主题折腾记]]></title>
-      <url>https://antstrong.github.io/2016/12/22/hexo%E5%8D%9A%E5%AE%A2next%E4%B8%BB%E9%A2%98%E6%8A%98%E8%85%BE%E8%AE%B0/</url>
-      <content type="html"><![CDATA[<p>首先，我很清楚现在网络上关于用hexo搭建博客的文章已经不计其数，但是在自己搭建完本博客之后还是忍不住要回顾一下整个流程，有两方面的考虑：</p>
-<ol>
-<li>对知识的一个总结</li>
-<li>因为这是自己第一次写文章，也可以练习一下文笔和对Markdown的使用</li>
-</ol>
-<h2 id="搭建博客的初衷"><a href="#搭建博客的初衷" class="headerlink" title="搭建博客的初衷"></a>搭建博客的初衷</h2><hr>
-<ul>
-<li>当然是为了装比（不不，作为一个程序员当然是为了慢慢树立属于自己的品牌）</li>
-<li>因为平常自己会看一些技术书籍，以前都是用纸质笔记本在写读书笔记和总结之类的，但是为了方便今后自己回顾和提倡绿色环保的理念还是选择了搭建一个博客</li>
-</ul>
-<h2 id="利用hexo搭建博客的步骤："><a href="#利用hexo搭建博客的步骤：" class="headerlink" title="利用hexo搭建博客的步骤："></a>利用hexo搭建博客的步骤：</h2><hr>
-<h3 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h3><p>当然前提条件是你已经安装了node.js，安装node.js的同时会自带安装全球最大的包管理工具NPM，然后打开命令行工具依次 输入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">npm install hexo-cli -g //全局安装hexo</div><div class="line">hexo init blog //在你自己想创建博客的目录下初始化博客项目</div><div class="line"><span class="built_in">cd</span> blog </div><div class="line">npm install //安装依赖</div><div class="line">hexo server //开启hexo服务器</div></pre></td></tr></table></figure></p>
-<p>执行完最后一条命令后你应该看到类似INFO  Hexo is running at <a href="http://localhost:4000/" target="_blank" rel="external">http://localhost:4000/</a>. Press Ctrl+C to stop.的语句，那么访问<a href="http://localhost:4000/" target="_blank" rel="external">http://localhost:4000/</a> 即可看到默认的landscape主题的网站</p>
-<h3 id="下载next主题并切换主题"><a href="#下载next主题并切换主题" class="headerlink" title="下载next主题并切换主题"></a>下载next主题并切换主题</h3><p>下载就不多说，利用git直接克隆github上最新的next，具体可以参考<a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="external">next使用</a>，然后在站点根目录，也即是blog目录下找到_config.yml 文件，在文件中找到 theme 关键字修改为如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">theme: next</div></pre></td></tr></table></figure></p>
-<p>同样为了验证我们的主题切换是否成功，命令行工具输入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo s</div></pre></td></tr></table></figure></p>
-<h3 id="主题配置中踩过的坑"><a href="#主题配置中踩过的坑" class="headerlink" title="主题配置中踩过的坑"></a>主题配置中踩过的坑</h3><p>当然上一步我们已经成功的将我们的博客主题切换到了next，但肯定有很多骚年不满足于目前next的表现，于是就开始了next主题个性化和第三方功能的折腾当中，官网已经说的很详细，具体见<a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="external">next使用</a>，下面就我自己踩过的几个坑做个特殊的说明：</p>
-<h4 id="多说user-id大坑"><a href="#多说user-id大坑" class="headerlink" title="多说user_id大坑"></a>多说user_id大坑</h4><p>为你的博客添加多说评论很简单，只需要注册一个多说账号，然后在站点配置文件 _config.yml 中增加字段：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">duoshuo_shortname: 你的多说域名中.duoshuo.com前面的字段</div></pre></td></tr></table></figure>
-<p>启用UA功能也很简单，只需要在next主题配置文件 _config.yml  中找到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">duoshuo_info:</div><div class="line">  ua_enable: true</div><div class="line">  admin_enable: true</div><div class="line">  user_id: 0</div><div class="line">  admin_nickname: 博主</div></pre></td></tr></table></figure></p>
-<p>然后将ua_enable字段设置为true即可，但是这个admin_enable字段是干什么用的呢？这个字段是为了在评论区突出显示博主自己而需要配置的，当然为了彰显出主场的气势，我也准备将这个功能打开，于是我将admin_enable字段设置为了true,但是问题来了，官网上明显说的是当admin_enable设置为true是必须设置user_id和admin_nickname，admin_nickname字段好说，随便写个自己看着舒服的名字就可以了，可是这个user_id是什么鬼？于是我差点没将我的<a href="http://antstrong.duoshuo.com/" target="_blank" rel="external">多说账号</a>里面的每一个字段都当成user_id一遍又一遍的测试，最后还是无功而返，试着各种搜索也没有找到相关的解决方案。最后，在官网和主题配置文件里面找到了答案，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># Make duoshuo show UA</div><div class="line"># user_id must NOT be null when admin_enable is true!</div><div class="line"># you can visit http://dev.duoshuo.com get duoshuo user id.</div><div class="line">duoshuo_info:</div><div class="line">  ua_enable: true</div><div class="line">  admin_enable: true</div><div class="line">  user_id: </div><div class="line">  admin_nickname:</div></pre></td></tr></table></figure></p>
-<p>别人明明说了让你去<a href="http://dev.duoshuo.com" target="_blank" rel="external">http://dev.duoshuo.com</a> 这个多说的开发者中心拿取user_id你却跑到<a href="http://antstrong.duoshuo.com" target="_blank" rel="external">http://antstrong.duoshuo.com</a> 去闹了个天翻地覆，还有就是官网也明明给了你答案，如下图：<br><img src="https://ws2.sinaimg.cn/large/aef6d2d7gw1fazlfa07glj20ny07pjt2.jpg" alt="user_id说明"><br>这时候真的是想说句日了狗了，同时也说明了自己不够细心，学东西太过于急切，也算是一个不大不小的教训吧，对了，最后贴一张最终的效果图吧：<br><img src="https://ws4.sinaimg.cn/large/aef6d2d7gw1fazln06d87j20j906k3yy.jpg" alt="效果图"></p>
-<h4 id="打赏功能之坑"><a href="#打赏功能之坑" class="headerlink" title="打赏功能之坑"></a>打赏功能之坑</h4><p>   打赏功能不必多说，开始主要是不知道要怎么添加这个功能，后面发现我正在使用的next主题已经集成了此功能，只需要在主题配置文件中添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># 文章末尾显示打赏</div><div class="line">reward_comment: 你的鼓励，我的动力！</div><div class="line">wechatpay: 微信支付图片URL</div><div class="line">alipay: 支付宝图片URL</div></pre></td></tr></table></figure></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><hr>
-<p>当然为了搭建这个博客，来来去去花了自己不少时间，因为自己也算一个小白，在很多方面都没有经验，所以只有靠着搜索引擎慢慢的收集资料，然后慢慢的消化慢慢的做出成果，最终，在踩了不少坑之后，这边笔记也相当于给自己的一个交代吧！哈哈，终于是完成了，当然完成也是一个开始，后面自己会尽力坚持在博客上多分享一些技术性的文章和自己的学习笔记，Live beautiful, come on!</p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Hello World]]></title>
-      <url>https://antstrong.github.io/2016/12/05/hello-world/</url>
-      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    </entry>
-    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="antstrong" />
+          <p class="site-author-name" itemprop="name">antstrong</p>
+          <p class="site-description motion-element" itemprop="description">Live beautiful</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/antstrong" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://gold.xitu.io/user/57ad2a96165abd00540bc2e8" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-get-pocket"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2935411415" target="_blank" title="Sina微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Sina微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/antstrong/" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-angellist"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#深入理解JSON"><span class="nav-number">1.</span> <span class="nav-text">深入理解JSON</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、JSON是一种格式，基于文本，优于轻量，用于交换数据"><span class="nav-number">1.1.</span> <span class="nav-text">一、JSON是一种格式，基于文本，优于轻量，用于交换数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-一种数据格式"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 一种数据格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-基于文本的数据格式"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 基于文本的数据格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-轻量级的数据格式"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. 轻量级的数据格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-被广泛地用于数据交换"><span class="nav-number">1.1.4.</span> <span class="nav-text">4. 被广泛地用于数据交换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、JSON和JS对象之间的“八卦”"><span class="nav-number">1.2.</span> <span class="nav-text">二、JSON和JS对象之间的“八卦”</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-两个本质不同的东西为什么那么密切"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 两个本质不同的东西为什么那么密切</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-JSON格式比JS对象语法表现上严格在哪"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. JSON格式比JS对象语法表现上严格在哪</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-一个有意思的地方，JSON不是JS的子集"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. 一个有意思的地方，JSON不是JS的子集</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、这几个JS中的JSON函数"><span class="nav-number">1.3.</span> <span class="nav-text">三、这几个JS中的JSON函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-将JS数据结构转化为JSON字符串——JSON-stringify"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. 将JS数据结构转化为JSON字符串——JSON.stringify</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-基本使用——仅需一个参数"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">1.1 基本使用——仅需一个参数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-第二个参数可以是函数，也可以是一个数组"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">1.2 第二个参数可以是函数，也可以是一个数组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-第三个参数用于美化输出——不建议用"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">1.3 第三个参数用于美化输出——不建议用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-注意这个函数的“小聪明”（重要）"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">1.4 注意这个函数的“小聪明”（重要）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-将JSON字符串解析为JS数据结构——JSON-parse"><span class="nav-number">1.3.2.</span> <span class="nav-text">2. 将JSON字符串解析为JS数据结构——JSON.parse</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-影响-JSON-stringify-的神奇函数——object-toJSON"><span class="nav-number">1.3.3.</span> <span class="nav-text">3. 影响 JSON.stringify 的神奇函数——object.toJSON</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、小结以及关于兼容性的问题"><span class="nav-number">1.4.</span> <span class="nav-text">四、小结以及关于兼容性的问题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">antstrong</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
   
   
-</search>
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"antstrong"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js?v=5.1.0"></script>
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("z52lg1T6jcnwPHhvjqadqGTf-gzGzoHsz", "u2i4lEh8x5HHDp7OaTx8kEx2");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+</html>
